@@ -1,10 +1,10 @@
 from datetime import datetime
 
-def get_upcoming_birthdays(users) -> list:
+def get_upcoming_birthdays(users: list) -> list:
     current_date = datetime.today().date()
     congratulations = []
     congratulation_date = current_date
-    for user in users:
+    for user in users: # додати умову на 7 днів вперед
         birthday_this_year = datetime.strptime(user['birthday'], '%Y.%m.%d').replace(year=2024).date()
         if birthday_this_year < current_date:
             congratulation_date = birthday_this_year.replace(year=current_date.year + 1)
@@ -16,11 +16,14 @@ def get_upcoming_birthdays(users) -> list:
             # Розглянути дату на наступний рік???
         user['birthday'] = datetime.strftime(congratulation_date, '%Y.%m.%d')
         congratulations.append(user)
-    print(congratulations)
+    return congratulations
 
 users = [
     {"name": "John Doe", "birthday": "1985.01.30"},
     {"name": "Jane Smith", "birthday": "1990.02.24"}
 ]
 
-get_upcoming_birthdays(users)
+print(get_upcoming_birthdays(users))
+# Визначте різницю між днем народження та поточним днем для визначення днів народження на наступний тиждень. (7днів)
+# Створіть структуру даних, яка зберігатиме ім'я користувача та відповідну дату привітання,
+# якщо день народження відбувається протягом наступного тижня.
